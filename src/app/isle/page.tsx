@@ -4,8 +4,9 @@ import {
   PlayIcon
 } from '@heroicons/react/24/solid'
 
-export default function Isle() {
+import Timer from './timer';
 
+export default function Isle() {
   return (
     <main className="flex items-center justify-center antialiased min-h-screen">
       <div className="flex items-center justify-between w-[464px] h-24 bg-black p-6 rounded-full">
@@ -20,7 +21,7 @@ export default function Isle() {
         </div>
         <div className="flex items-end gap-2 text-amber-500">
           <div className="text-lg font-semibold">Timer</div>
-          <div className="text-5xl">14:42</div>
+          <Timer className="text-5xl tabular-nums" />
         </div>
       </div>
     </main>
