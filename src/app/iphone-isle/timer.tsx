@@ -30,11 +30,10 @@ export default function Isle({ closeTimer }) {
   }, [isRunning]);
 
   const formatTime = (): string => {
-    const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
 
-    return `${hrs < 10 ? '0' : ''}${hrs}:${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
   const timer: string[] = formatTime().split('');
   const variants = {
@@ -58,7 +57,7 @@ export default function Isle({ closeTimer }) {
       <div className="flex gap-4">
         <button
             onClick={() => setIsRunning(!isRunning)} 
-            className="flex justify-center items-center w-[56px] h-[56px] bg-orange-500/[40%] hover:bg-orange-500/[50%] transition-all duration-200 rounded-full cursor-pointer"
+            className="flex justify-center items-center w-[48px] h-[48px] bg-orange-500/[20%] hover:bg-orange-500/[30%] transition-all duration-200 rounded-full cursor-pointer"
           >
           <AnimatePresence mode="popLayout" initial={false}>
             {
@@ -72,7 +71,7 @@ export default function Isle({ closeTimer }) {
                     exit="exit"
                     transition={{ ...transition }}
                   >
-                    <PauseIcon className="size-8 text-amber-500" />
+                    <PauseIcon className="size-6 text-amber-500" />
                   </motion.div>
                 )
               : (
@@ -84,7 +83,7 @@ export default function Isle({ closeTimer }) {
                     exit="exit"
                     transition={{ ...transition }}
                   >
-                    <PlayIcon className="size-8 text-amber-500" />
+                    <PlayIcon className="size-6 text-amber-500" />
                   </motion.div>
                 )
             }
@@ -92,14 +91,14 @@ export default function Isle({ closeTimer }) {
         </button>
         <button 
           onClick={closeTimer}  
-          className="flex justify-center items-center w-[56px] h-[56px] bg-gray-500/[40%] hover:bg-gray-500/[50%] transition-all duration-200 rounded-full cursor-pointer"
+          className="flex justify-center items-center w-[48px] h-[48px] bg-gray-500/[20%] hover:bg-gray-500/[30%] transition-all duration-200 rounded-full cursor-pointer"
         >
-          <XMarkIcon className="size-8 text-white" />
+          <XMarkIcon className="size-6 text-white" />
         </button>
       </div>
       <div className="flex items-end gap-2 text-amber-500">
-        <div className="text-lg font-semibold">Timer</div>
-        <div className='relative whitespace-nowrap w-[194px] text-5xl tabular-nums'>
+        <div className="text-lg leading-snug">Timer</div>
+        <div className='flex items-end relative whitespace-nowrap text-5xl tabular-nums'>
           <AnimatePresence mode="popLayout" initial={false}>
               {timer.map((digit, index) => {
                   return (
