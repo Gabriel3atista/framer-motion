@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function Isle({ closeTimer }) {
+export default function Isle({ closeIsle }) {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
@@ -90,15 +90,15 @@ export default function Isle({ closeTimer }) {
           </AnimatePresence>
         </button>
         <button 
-          onClick={closeTimer}  
+          onClick={closeIsle}  
           className="flex justify-center items-center w-[48px] h-[48px] bg-gray-500/[20%] hover:bg-gray-500/[30%] transition-all duration-200 rounded-full cursor-pointer"
         >
           <XMarkIcon className="size-6 text-white" />
         </button>
       </div>
       <div className="flex items-end gap-2 text-amber-500">
-        <div className="text-lg leading-snug">Timer</div>
-        <div className='flex items-end relative whitespace-nowrap text-5xl tabular-nums'>
+        <div className="text-base leading-snug">Timer</div>
+        <div className='flex items-end relative whitespace-nowrap text-[40px] leading-none tabular-nums'>
           <AnimatePresence mode="popLayout" initial={false}>
               {timer.map((digit, index) => {
                   return (
