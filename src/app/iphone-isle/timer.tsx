@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function Isle({ closeIsle }) {
+export default function Timer({ closeIsle }) {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 

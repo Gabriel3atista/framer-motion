@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={
-        clsx('bg-slate-50 text-slate-500 antialiased', sfpro.className)
+        clsx('bg-slate-50 text-gray-500 antialiased', sfpro.className)
       }>{children}</body>
     </html>
   );

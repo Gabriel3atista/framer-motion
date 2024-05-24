@@ -1,6 +1,8 @@
 "use client"
 
 import Timer from './timer';
+import Spotify from './spotify';
+import AudioPlayer from './AudioPlayer';
 
 import Image from 'next/image'
 import { useMemo, useState, useRef } from 'react';
@@ -8,10 +10,111 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
 
 export default function Phone() {
-  const [currentState, setCurrentState] = useState('default');
-
+  const [isleCurrentState, setIsleCurrentState] = useState('default');
   const isleContainer = useRef(null);
-
+  const isleStyle = {
+    default: {
+      width: 128,
+      height: 32,
+      borderRadius: 999
+    },
+    timer: {
+      width: 348,
+      height: 77,
+      borderRadius: 999
+    },
+    spotify: {
+      width: 348,
+      height: 176,
+      borderRadius: 40
+    },
+  }
+  const phoneIcons = [
+    {
+      name: "timer",
+      src: "/icons/clock.svg",
+      alt: "Clock Icon",
+      width: 260,
+      height: 260,
+    },
+    {
+      name: "spotify",
+      src: "/icons/spotify.png",
+      alt: "Clock Icon",
+      width: 100,
+      height: 100,
+    },
+    {
+      name: "default",
+      src: "/icons/books.png",
+      alt: "Books Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/calculator.png",
+      alt: "Calculator Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/contacts.png",
+      alt: "Contacts Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/facetime.png",
+      alt: "FaceTime Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/files.png",
+      alt: "Files Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/fitness.png",
+      alt: "Fitness Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/home.png",
+      alt: "Home Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/mail.png",
+      alt: "Mail Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/music.png",
+      alt: "Music Icon",
+      width: 60,
+      height: 60,
+    },
+    {
+      name: "default",
+      src: "/icons/phone.png",
+      alt: "Phone Icon",
+      width: 60,
+      height: 60,
+    },
+  ]
   const variants = {
     initial: { 
       opacity: 0, 
@@ -28,11 +131,11 @@ export default function Phone() {
   }
 
   const closeIsle = () => {
-    setCurrentState('default');
+    setIsleCurrentState('default');
   }
 
   const isleStates = useMemo(() => {
-    switch (currentState) {
+    switch (isleCurrentState) {
       case 'timer':
         return (
           <motion.div
@@ -45,7 +148,22 @@ export default function Phone() {
             transition={{ duration: .6, type: "spring" }}
             className='w-full flex justify-between py-4 pl-4 pr-6'
           >
-              <Timer closeIsle={closeIsle}/>
+              <Timer closeIsle={closeIsle} />
+          </motion.div>
+        );
+      case 'spotify':
+        return (
+          <motion.div
+            key="spotify"
+            layoutId='isle'
+            variants={variants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: .6, type: "spring" }}
+            className='w-full h-full flex justify-between p-6'
+          >
+              <Spotify />
           </motion.div>
         );
       default:
@@ -58,9 +176,9 @@ export default function Phone() {
           </motion.div>
         );
     }
-  }, [currentState]);
+  }, [isleCurrentState]);
 
-  useOnClickOutside(isleContainer, () => { setCurrentState('default')})
+  useOnClickOutside(isleContainer, () => { setIsleCurrentState('default')})
 
   return (
     <main className="bg-black flex flex-col items-center justify-center antialiased h-screen max-h-screen gap-16">
@@ -70,9 +188,9 @@ export default function Phone() {
           <motion.div 
             className="absolute top-6 h-8 left-9 flex gap-2 items-center"
             animate={{
-              x: currentState === 'default' ? 0 : -24, 
-              opacity: currentState === 'default' ? 1 : 0, 
-              filter: currentState === 'default' ? "blur(0px)" : "blur(4px)",
+              x: isleCurrentState === 'default' ? 0 : -24, 
+              opacity: isleCurrentState === 'default' ? 1 : 0, 
+              filter: isleCurrentState === 'default' ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ type: "spring", duration: .6 }}
           >
@@ -88,12 +206,8 @@ export default function Phone() {
               <motion.div
                 layout
                 ref={isleContainer}
-                className="relative flex items-center justify-center bg-black rounded-full"
-                style={
-                  currentState === 'default'
-                  ? { width: 128, height: 32 }
-                  : { width: 348, height: 77 }
-                }
+                className="relative z-20 flex items-center justify-center bg-black"
+                style={isleStyle[isleCurrentState]}
                 transition={{ duration: .6, type: "spring" }}
               >
                 <AnimatePresence mode="popLayout" initial={false}>
@@ -104,9 +218,9 @@ export default function Phone() {
           <motion.div 
             className="absolute top-6 h-8 right-9 flex gap-2 items-center"
             animate={{
-              x: currentState === 'default' ? 0 : 24, 
-              opacity: currentState === 'default' ? 1 : 0, 
-              filter: currentState === 'default' ? "blur(0px)" : "blur(4px)",
+              x: isleCurrentState === 'default' ? 0 : 24, 
+              opacity: isleCurrentState === 'default' ? 1 : 0, 
+              filter: isleCurrentState === 'default' ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ type: "spring", duration: .6 }}
           >
@@ -130,27 +244,25 @@ export default function Phone() {
             />
           </motion.div>
         </nav>
-        <ul className="absolute z-10 w-full p-8 top-24 flex gap-4">
-          <li 
-            onClick={() => setCurrentState('timer')} 
-            className="cursor-pointer active:opacity-80">
-            <Image
-              className="w-14 h-14"
-              src="/icons/clock.svg" 
-              alt="iPhone 15" 
-              width={260} height={260} 
-            />
-          </li>
-          <li 
-            onClick={() => setCurrentState('timer')} 
-            className="cursor-pointer active:opacity-80">
-            <Image
-              className="w-14 h-14"
-              src="/icons/spotify.png" 
-              alt="iPhone 15" 
-              width={260} height={260} 
-            />
-          </li>
+        <ul className="absolute w-full p-8 top-32 grid grid-cols-4 grid-rows-3 gap-6">
+          {
+            phoneIcons.map((icon, index) => {
+              return (
+                <li 
+                  key={index}
+                  onClick={() => setIsleCurrentState(icon.name)} 
+                  className="cursor-pointer active:opacity-80">
+                  <Image
+                    className="w-[72px] h-auto rounded-xl"
+                    src={icon.src} 
+                    alt={icon.alt} 
+                    width={icon.width} 
+                    height={icon.height} 
+                  />
+                </li>
+              )
+            })
+          }
         </ul>
         <Image
           priority
@@ -161,5 +273,8 @@ export default function Phone() {
         />
       </div>
     </main>
+    // <div>
+    //   <AudioPlayer />
+    // </div>
   );
 }
